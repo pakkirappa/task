@@ -50,9 +50,6 @@ npm start
 ## API documentation
  API documentation : https://documenter.getpostman.com/view/28056609/2s9YXb9knU
 
-## Video link
- Video link : 'https://drive.google' 
-
 
 ## Deployment steps
 // write deployement steps in digital ocean based on the project here i have used node js and mongodb as database   
