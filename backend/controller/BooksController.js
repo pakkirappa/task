@@ -20,6 +20,7 @@ export const addBook = async (req, res) => {
         title,
         author,
         summary,
+        user: req.user.id,
       });
       await book.save();
       res.status(200).send("Book added");
@@ -58,11 +59,11 @@ export const getAllBooks = async (req, res) => {
 // delete book by id
 export const deleteBook = async (req, res) => {
   try {
-    const book = await Book.findById(req.params.id);
+    const book = await Book.findByIdAndDelete(req.params.id);
     if (!book) {
       return res.status(404).send("Book not found");
     }
-    await book.remove();
+
     res.status(200).send("Book deleted");
   } catch (e) {
     console.error(e.message);
@@ -89,4 +90,18 @@ export const updateBook = async (req, res) => {
   }
 };
 
-
+// filter books by title
+export const filterBooks = async (req, res) => {
+  try {
+    const books = await Book.find({
+      title: { $regex: req.params.title, $options: "i" },
+    });
+    if (!books) {
+      return res.status(404).send("Book not found");
+    }
+    res.status(200).send(books);
+  } catch (e) {
+    console.error(e.message);
+    res.status(500).send("Server error");
+  }
+};

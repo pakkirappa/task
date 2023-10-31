@@ -8,6 +8,7 @@ import morgan from "morgan";
 
 const app = express();
 
+  
 app.use(express.json());
 app.use(cors());
 app.use(morgan("dev"));
@@ -15,6 +16,9 @@ app.use(morgan("dev"));
 app.get("/", (req, res) => {
   res.send("Hello to Book Store API");
 });
+// routes
+app.use("/api/v1/users", userRouter);
+app.use("/api/v1/books", bookRouter);
 
 const CONNECTION_URL =
   process.env.MONGODB_URI || "mongodb://localhost:27017/BookStore";
@@ -31,6 +35,9 @@ mongoose
   )
   .catch((error) => console.log(error.message));
 
-// routes
-app.use("/api/v1/users", userRouter);
-app.use("/api/v1/books", bookRouter);
+
+
+// user unknown endpoint middleware
+app.use((req, res) => {
+  res.status(404).send("Unknown Endpoint");
+});

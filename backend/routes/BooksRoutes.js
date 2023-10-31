@@ -29,4 +29,7 @@ bookRouter.delete("/:id", checkToken, Book.deleteBook);
 // update book by id
 bookRouter.patch("/:id", checkToken, Book.updateBook);
 
+// search book by title
+bookRouter.get("/search/:title", checkToken, Book.filterBooks);
+
 export default bookRouter;

@@ -8,7 +8,7 @@ const userRouter = express.Router();
 
 // add user to database
 userRouter.post(
-  "/register",
+  "/",
   [
     check("name", "Name is required").notEmpty(),
     check("email", "Please include a valid email").isEmail(),
